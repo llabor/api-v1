@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --exit --timeout 10000"
   },
   "keywords": [
     "api",
@@ -20,6 +20,9 @@
     "fs": "0.0.1-security"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.1",
     "nodemon": "1.14.12"
   }
 }

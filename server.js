@@ -20,7 +20,7 @@ console.log("API escuchando en el puerto" + port)
 
 app.get('/apitechu/v1', function(req, res)
 {
-  console.log(req)
+  //console.log(req)
   res.send({"mensaje":"Bienvenido a mi API"})
 })
 
