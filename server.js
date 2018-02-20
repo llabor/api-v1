@@ -61,6 +61,33 @@ app.post('/apitechu/v5/login', function(req, res) {
     })
 })
 
+app.get('/apitechu/v5/cuentas', function(req, res) {
+  var idcliente = req.headers.id
+  var query = 'q={"idcliente":' + idcliente + '}'
+  var filter = 'f={"iban":1,"_id":0}'
+  clienteMlab = requestJson.createClient(urlMlabRaiz + "/cuentas?" + query + "&" + filter + "&" + apiKey)
+  clienteMlab.get('', function(err, resM, body) {
+    if(!err) {
+      res.send(body)
+    }
+  })
+})
+
+app.get('/apitechu/v5/movimientos', function(req, res) {
+  var idcuenta = req.headers.idcuenta
+  var query = 'q={"iban":"' + idcuenta + '"}'
+  var filter = 'f={"movimientos":1,"_id":0}'
+  console.log(query)
+  clienteMlab = requestJson.createClient(urlMlabRaiz + "/cuentas?" + query + "&" + filter + "&" + apiKey)
+  clienteMlab.get('', function(err, resM, body) {
+    if(!err) {
+      res.send(body)
+    }
+  })
+})
+
+
+
 app.post('/apitechu/v5/logout', function(req, res) {
     var id = req.headers.id
 
