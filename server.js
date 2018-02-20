@@ -61,6 +61,28 @@ app.post('/apitechu/v5/login', function(req, res) {
     })
 })
 
+app.post('/apitechu/v5/logout', function(req, res) {
+    var id = req.headers.id
+
+    var query = 'q={"id":' + id + ', "logged":true}'
+    clienteMlab = requestJson.createClient(urlMlabRaiz + "/usuarios?" + query + "&l=1&" + apiKey)
+    clienteMlab.get('', function(err, resM, body) {
+      if (!err) {
+        if (body.length == 1) // Estaba logado
+        {
+          clienteMlab = requestJson.createClient(urlMlabRaiz + "/usuarios")
+          var cambio = '{"$set":{"logged":false}}'
+          clienteMlab.put('?q={"id": ' + body[0].id + '}&' + apiKey, JSON.parse(cambio), function(errP, resP, bodyP) {
+              res.send({"logout":"ok", "id":body[0].id})
+          })
+
+        }
+        else {
+          res.status(200).send('Usuario no logado previamente')
+        }
+      }
+    })
+})
 
 
 
